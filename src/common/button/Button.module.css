@@ -1,0 +1,20 @@
+.buttonWrapper {
+    padding: 0.5rem 1rem;
+    min-width: 88px;
+    border: 2px solid;
+    border-radius: 8px;
+    margin: auto 8px;
+    font-size: 16px;
+    background: white;
+    color: black;
+}
+
+.buttonWrapper:hover {
+    background: blue;
+    color: white;
+}
+
+.buttonPrimary {
+    background-color: black;
+    color: white;
+}

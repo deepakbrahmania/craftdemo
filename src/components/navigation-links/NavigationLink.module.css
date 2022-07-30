@@ -1,0 +1,23 @@
+.linkWrapper {
+    list-style: none;
+    padding: 1rem;
+    border-bottom: 1px solid gray;
+}
+
+.linkWrapper:last-child {
+    border-bottom: none;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+}
+.active {
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.navigation-container {
+    padding: 20px;
+}

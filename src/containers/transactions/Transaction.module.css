@@ -1,0 +1,9 @@
+.debited {
+    color: red;
+}
+.credited {
+    color: green;
+}
+.notExpense {
+    color: gainsboro;
+}

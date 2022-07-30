@@ -1,0 +1,15 @@
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.label {
+    flex: 0.5;
+}
+.amount {
+    flex: 1;
+}
+.action {
+    flex: 1;
+}

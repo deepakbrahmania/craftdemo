@@ -1,0 +1,20 @@
+.inputWrapper {
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.withLabel {
+    gap: 1rem;
+}
+
+.input {
+    padding: 0.5rem;
+    min-width: 200px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+input[type="checkbox"] {
+    min-width: auto;
+}

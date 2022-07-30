@@ -1,0 +1,17 @@
+.dataWrapper {
+    margin: 1rem;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: row;;
+}
+.withInLimit {
+    color: green
+}
+
+.withInLimit::before {
+    content: "Rs ";
+}
+
+.maxedOut {
+    color: red;
+}
