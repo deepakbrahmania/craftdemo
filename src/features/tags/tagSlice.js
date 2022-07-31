@@ -65,18 +65,19 @@ const tagSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllTags.pending, (state) => {
-        // state.status = "pending";
+        state.status = "pending";
         state.error = null;
       })
       .addCase(fetchAllTags.fulfilled, (state, action) => {
         if (action.payload.status === "SUCCESS") {
           state.tags = action.payload.data.tags;
+          state.status = "succeeded";
         } else {
           state.error = action.payload.data.message;
         }
       })
       .addCase(fetchAllTags.rejected, (state) => {
-        // state.status = "failed";
+        state.status = "failed";
         state.error = "Network Failure, please try again later";
       })
       .addCase(addTag.fulfilled, (state,action) => {

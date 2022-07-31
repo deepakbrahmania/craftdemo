@@ -97,6 +97,7 @@ export const transactionSlice = createSlice({
               ? action.payload.data
               : transaction
           );
+
           // state.updates_status = action.payload.message;
         } else {
           // state.updates_status = action.payload.message;

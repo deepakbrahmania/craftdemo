@@ -47,6 +47,7 @@ export const ModifyAccounts = ({ account, action }) => {
         text={displayText}
         primary={isNewAccount}
         onClick={() => setIsOpen(!isOpen)}
+        image={displayText}
       />
       <Modal
         isOpen={isOpen}

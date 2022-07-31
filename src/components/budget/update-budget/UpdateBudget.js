@@ -5,7 +5,7 @@ import { AddBudgetTags } from "../../../features/budget/addBudget";
 import { Input } from "../../../common/input/Input";
 import { Button } from "../../../common/button/Button";
 
-export const UpdateBudget = ({ budget, tags, onUpdate, onDelete }) => {
+export const UpdateBudget = ({ budget, tags}) => {
   return (
     <div className={classNames(styles.budgetContainer)}>
       <h2>
@@ -16,17 +16,20 @@ export const UpdateBudget = ({ budget, tags, onUpdate, onDelete }) => {
           <div className={styles.label}>{tags[tag.tag_id].tag_fullName}</div>
           <div className={styles.input}>
             <Input
+            isDisabled
               type="number"
               value={tag.assigned}
-              onChange={(e) => onUpdate(tag.tag_id, e.target.value)}
             />
           </div>
           <div className={styles.action}>
-            <Button text={"X"} onClick={() => onDelete(tag.tag_id)} / >
+            <AddBudgetTags actionType={"update"} tag={tag} />
+            <AddBudgetTags actionType={"delete"} tag={tag}/>
+            {/* <Button text={"X"} onClick={() => onDelete(tag.tag_id)} / > */}
           </div>
         </div>
       ))}
       <AddBudgetTags />
+      
     </div>
   );
 };

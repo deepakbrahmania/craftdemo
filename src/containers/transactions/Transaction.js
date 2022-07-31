@@ -18,7 +18,7 @@ import {
 import { fetchAllTags, selectTagEntities } from "../../features/tags/tagSlice";
 import { AddTransaction } from "../../features/transactions/crud-transactions/CrudTransactions";
 
-export const Transaction = (props) => {
+export const Transaction = ({ showActions = true }) => {
   const transactions = useSelector(getAllTransactions);
   const accounts = useSelector(selectAccountEntities);
   const allTags = useSelector(selectTagEntities);
@@ -31,6 +31,7 @@ export const Transaction = (props) => {
 
   useEffect(() => {
     if (transactionStatus === "idle") {
+      console.log("XYY", transactionStatus);
       dispatch(fetchAllTransactions());
     }
   }, [transactionStatus, dispatch]);
@@ -105,12 +106,17 @@ export const Transaction = (props) => {
           }
           return value;
         }}
-        renderActions={(row) => (
-          <div>
-            <AddTransaction actionTye={"update"} transaction={row}/>
-            <AddTransaction actionTye={"delete"} transaction={row}/>
-          </div>
-        )}
+        renderActions={
+          showActions
+            ? (row) => (
+                <div className="row">
+                  <div className="col">
+                  <AddTransaction actionTye={"update"} transaction={row} /></div>
+                  <div className="col"><AddTransaction actionTye={"delete"} transaction={row} /></div>
+                </div>
+              )
+            : null
+        }
       />
     );
   }
@@ -118,9 +124,11 @@ export const Transaction = (props) => {
     <div>
       <h2 className="text-center">Transaction Dashboard</h2>
       <div className="row flex-col">
-        <div className="col">
-          <AddTransaction />
-        </div>
+        {showActions ? (
+          <div className="col">
+            <AddTransaction />
+          </div>
+        ) : null}
         <div className="col">{content}</div>
       </div>
     </div>

@@ -40,7 +40,7 @@ export const AddTags = ({ actionType, tag}) => {
 
   return (
     <div>
-      <Button text={displayText} primary onClick={() => setIsOpen(!isOpen)} />
+      <Button text={displayText} onClick={() => setIsOpen(!isOpen)} image={displayText} />
       <Modal
         isOpen={isOpen}
         title={displayText}

@@ -38,7 +38,7 @@ export const Table = ({
                       {renderElement ? renderElement(key, val, row) : val}
                     </td>
                   ))}
-              <td>{renderActions && renderActions(row)}</td>
+              {renderActions && <td>{renderActions(row)}</td>}
             </tr>
           ))}
         </tbody>

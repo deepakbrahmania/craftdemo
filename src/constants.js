@@ -33,10 +33,6 @@ export const NAV_LINKS = [
         name: 'Accounts',
         link: '/accounts'
     },
-    {
-        name: 'Transactions',
-        link: '/transactions'
-    }
 ]
 
 export const COLORS = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 

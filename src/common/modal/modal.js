@@ -12,8 +12,8 @@ export const Modal = (props) => {
                 </div>
                 <div className="modal-body">{props.children}</div>
                 <div className="modal-action">
-                    <Button text="Close" onClick={props.reset} />
-                    <Button text={"Submit"} primary onClick={props.onSubmit}/>
+                    <Button text="Close" onClick={props.reset} image="Close"/>
+                    <Button text={"Submit"} primary onClick={props.onSubmit} image="Close"/>
                 </div>
             </div>
         </div>

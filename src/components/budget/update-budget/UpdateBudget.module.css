@@ -12,4 +12,7 @@
 }
 .action {
     flex: 1;
+    display: flex;
+    gap: 1rem;
+    margin: 0 1rem;
 }

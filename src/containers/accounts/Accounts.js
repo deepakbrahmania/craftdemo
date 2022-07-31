@@ -20,15 +20,14 @@ export const Accounts = (props) => {
   const [accountStatus, accountError] = useSelector(getAccountStatus);
   const newUpdates = useSelector(getUpdateStatus);
 
-  
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(accounts, accountStatus, accountError);
     if (accountStatus === "idle") {
       dispatch(fetchAllAccounts());
     }
   }, [accountStatus, dispatch]);
-
 
   let accountContent;
   if (accountStatus === "pending") {
@@ -59,8 +58,12 @@ export const Accounts = (props) => {
         }}
         renderActions={(row) => (
           <div className="row">
-            <ModifyAccounts account={row} action="update"/>
-            <ModifyAccounts account={row} action ={"delete"} />
+            <div className="col">
+              <ModifyAccounts account={row} action="update" />
+            </div>
+            <div className="col">
+              <ModifyAccounts account={row} action={"delete"} />
+            </div>
           </div>
         )}
       />

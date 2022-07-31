@@ -1,29 +1,78 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '../../common/button/Button';
-import { BarChart } from '../../common/charts/bar';
-import { Input } from '../../common/input/Input';
-import { Notification } from '../../common/notification/Notification';
-import { getTrendStatus, getTrends, fetchAllTrends } from '../../features/trends/trendSlice';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BarChart } from "../../common/charts/bar";
+import { Transaction } from "../transactions/Transaction";
+import {
+  getTrendStatus,
+  getTrends,
+  fetchAllTrends,
+} from "../../features/trends/trendSlice";
 
 export const HomePage = () => {
-    const trends = useSelector(getTrends);
-    const [trendStatus, trendError] = useSelector(getTrendStatus);
-    const dispatch = useDispatch();
+  const trends = useSelector(getTrends);
+  const [trendStatus, trendError] = useSelector(getTrendStatus);
+  const [trendsData, setTrendsData] = useState([]);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log("Hello", trendStatus)
-        if(trendStatus === 'idle') {
-           dispatch(fetchAllTrends()); 
+  console.log("Updated Trends", trends);
+
+  let chartData;
+  useEffect(() => {
+    if (trendStatus === "idle") {
+      dispatch(fetchAllTrends());
+    }
+  }, [trendStatus, dispatch]);
+
+  const createTrendsData = (trendData) => {
+    setTrendsData([]);
+    const transactionData = [...trendData];
+    const trendsObj = {};
+
+    transactionData.forEach(transaction => {
+      const type = transaction.type;
+      if (trendsObj[transaction.timestamp]) {
+        trendsObj[transaction.timestamp] = {
+          ...trendsObj[transaction.timestamp],
+          [type]: (trendsObj[transaction.timestamp][type] || 0) + transaction.amount 
         }
-    }, [trendStatus, dispatch]);
+      } else {
+        trendsObj[transaction.timestamp] = {timestamp: transaction.timestamp, [type]: transaction.amount };
+      }
+    });
+    const sortedTrends = Object.values(trendsObj).sort((a, b) => a.timestamp - b.timestamp);
+    return(sortedTrends);
+  }
 
-    console.log(trends);
-    return <div>
-        Welcome to homepages
-        <Input value={"world"} onUpdate={(val) => console.log(val)} />
-        <Button primary text={"hello"} onClick={(e) => console.log("e", e)}/>
-        <Button customRender={() => <span>Helo</span>} onClick={(e) => console.log("e", e)}/>
-        
-    </div>
-}
+  useEffect(() => {
+    setTrendsData(createTrendsData(trends));
+  }, [trends])
+
+  if (trends.length === 0) {
+    return "Nothing to display";
+  } else if (trendStatus === "pending") {
+    return <div>Loading Trends...</div>;
+  } else if (trendStatus === "failure") {
+    return <div>Error</div>;
+  } else {
+    console.log(trendStatus, trends);
+    chartData = [["Time", "Credited", "Debited"]];
+    // const title = trends[0].name;
+    const title = 'Trends';
+    // setTrendsData(createTrendsData(trends));
+    trendsData.map((row) => {
+      chartData.push([new Date(row.timestamp).toDateString(), row.credited, row.debited]);
+    });
+    console.log(chartData);
+    return (
+      <div style={{padding: '20px'}}>
+        <h2 className="text-center">Trends</h2>
+        <div className="row flex-col">
+          <div className="col">
+            <BarChart data={chartData} options={{ title }} />
+          </div>
+          <div className="col">{<Transaction />}</div>
+        </div>
+      </div>
+    );
+  }
+};

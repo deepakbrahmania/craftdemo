@@ -6,10 +6,10 @@ export const getTotalBudget = (props) => {
   });
 };
 export const putTotalBudget = (props) =>
-  API.put("/budget/new", { props }).then((data) => data);
+  API.put("/budget/new", { ...props }).then((data) => data);
 
 export const updateTotalBudget = (props) =>
-  API.post(`/budget/update`, { props }).then(
+  API.post(`/budget/update`, { ...props }).then(
     (data) => data
   );
 

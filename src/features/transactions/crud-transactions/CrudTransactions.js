@@ -68,6 +68,7 @@ import { updateExistingTransaction } from "../transactionAPI";
           text={displayText}
           primary={isNewTransaction}
           onClick={() => setIsOpen(!isOpen)}
+          image={displayText}
         />
         <Modal
           isOpen={isOpen}

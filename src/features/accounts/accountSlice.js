@@ -44,7 +44,7 @@ export const removeAccount = createAsyncThunk(
 
 const initialState = {
   accounts: [],
-  status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed',
+  status: "idle", // 'idle' | 'pending' | 'succeeded' | 'failed',
   error: null, // string | null
   updates_status: "",
 };
@@ -60,6 +60,7 @@ const accountSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllAccounts.pending, (storeState) => {
+        storeState.status = "pending";
         storeState.error = null;
       })
       .addCase(fetchAllAccounts.fulfilled, (storeState, action) => {
@@ -69,12 +70,14 @@ const accountSlice = createSlice({
           //   action.payload.data.accounts
           // );
           storeState.accounts = action.payload.data.accounts;
+          storeState.status = "succeeded";
         } else {
           storeState.error = action.payload.message;
         }
       })
       .addCase(fetchAllAccounts.rejected, (storeState) => {
         storeState.error = "Network Failure, please try again later";
+        storeState.status = "failure";
       })
       .addCase(createNewAccount.fulfilled, (state, action) => {
         if (action.payload.status === "SUCCESS") {

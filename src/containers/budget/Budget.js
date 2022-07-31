@@ -67,9 +67,6 @@ export const Budget = (props) => {
           <UpdateBudget
             budget={budgetData}
             tags={tags}
-            onAdd={() => {}}
-            onUpdate={() => {}}
-            onDelete={() => {}}
           />
         </div>
       </>
