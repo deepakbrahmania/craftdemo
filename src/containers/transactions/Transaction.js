@@ -6,7 +6,7 @@ import { TransactionMap } from "../../constants";
 import {
   getAllTransactions,
   getTransactionStatus,
-  updateTransaction,
+  fetchAllTransactions,
 } from "../../features/transactions/transactionSlice";
 import classNames from "classnames";
 import styles from "./Transaction.module.css";
@@ -16,8 +16,7 @@ import {
   selectAccountEntities,
 } from "../../features/accounts/accountSlice";
 import { fetchAllTags, selectTagEntities } from "../../features/tags/tagSlice";
-import { Button } from "../../common/button/Button";
-import { AddTransaction } from "../../features/transactions/add-transactions/AddTransaction";
+import { AddTransaction } from "../../features/transactions/crud-transactions/CrudTransactions";
 
 export const Transaction = (props) => {
   const transactions = useSelector(getAllTransactions);
@@ -32,7 +31,7 @@ export const Transaction = (props) => {
 
   useEffect(() => {
     if (transactionStatus === "idle") {
-      dispatch(updateTransaction());
+      dispatch(fetchAllTransactions());
     }
   }, [transactionStatus, dispatch]);
 
@@ -108,8 +107,8 @@ export const Transaction = (props) => {
         }}
         renderActions={(row) => (
           <div>
-            <Button text={"Delete"} onClick={() => {}} />
-            <Button text={"Update"} onClick={() => {}} />
+            <AddTransaction actionTye={"update"} transaction={row}/>
+            <AddTransaction actionTye={"delete"} transaction={row}/>
           </div>
         )}
       />

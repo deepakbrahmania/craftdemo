@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./Input.module.css";
 import classNames from "classnames";
 
-export const Input = ({ type, label, value, onUpdate }) => {
+
+export const Input = ({ type, label, value, onUpdate, isDisabled=false }) => {
   const [inputVal, setInputVal] = useState("");
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export const Input = ({ type, label, value, onUpdate }) => {
 
       <input
         id="textField"
+        disabled={isDisabled}
         type={type || "text"}
         className={classNames(styles.input)}
         value={inputVal}

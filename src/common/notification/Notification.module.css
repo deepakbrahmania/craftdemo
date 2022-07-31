@@ -1,0 +1,44 @@
+.alert {
+    padding: 1rem 1rem;
+    background: #f6f7f8;
+    color: black;
+    display: block;
+    border-width: 0 0 0 6px;
+    border-radius: 0.25rem;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0.8;
+    position: relative;
+    font-weight: bold;
+}
+
+.info {
+    background-color: #e8f8ff;
+}
+
+.success {
+    background-color: #53a318;
+}
+
+.error {
+    background-color: #eb003c;
+}
+.warning {
+    background-color: #fff5db;
+}
+
+.isDismissble {
+    padding-right: 2.5rem;
+}
+
+.closeIconWrapper {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) scale(0.5);
+    text-align: center;
+    cursor: pointer;
+}

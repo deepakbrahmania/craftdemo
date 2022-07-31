@@ -5,8 +5,6 @@ import {
   getTagsStatus,
   selectAllTags,
 } from "../../features/tags/tagSlice";
-import classNames from "classnames";
-import styles from "./Tags.module.css";
 import { AddTags } from "../../features/tags/AddTags";
 import { Table } from "../../common/table/Table";
 import { Button } from "../../common/button/Button";
@@ -40,10 +38,12 @@ export const Tags = () => {
       <Table
         headers={{"tag_name":"Tag", "tag_fullName": "Name"}}
         data={tags}
-        renderActions={() => (
+        renderActions={(row) => (
           <div>
-            <Button text={"Delete"} onClick={() => {}} />
-            <Button text={"Update"} onClick={() => {}} />
+            <AddTags actionType={"update"} tag={row}/>
+            <AddTags actionType={"delete"} tag={row}/>
+            {/* <Button text={"Delete"} onClick={() => {}} />
+            <Button text={"Update"} onClick={() => {}} /> */}
           </div>
         )}
       />

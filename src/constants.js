@@ -9,10 +9,10 @@ export const TransactionMap = {
 
 export const expenseType = [
     {
-        type: 'credit',
+        type: 'credited',
         label: "Credited"
     },{
-        type: 'debit',
+        type: 'debited',
         label: "Debited"
     }
 ]

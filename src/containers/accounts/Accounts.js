@@ -1,21 +1,26 @@
-import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../common/button/Button";
+import { Notification } from "../../common/notification/Notification";
 import { relativeTimeFromNow } from "../../common/helpers";
 import { Table } from "../../common/table/Table";
 import {
+  clearUpdates,
   fetchAllAccounts,
   getAccountStatus,
+  getUpdateStatus,
+  removeAccount,
   selectAllAccounts,
 } from "../../features/accounts/accountSlice";
-import { AddAccount } from "../../features/accounts/add-account/AddAccount";
+import { ModifyAccounts } from "../../features/accounts/modify-accounts/ModifyAccounts";
 import styles from "./Accounts.module.css";
 
 export const Accounts = (props) => {
   const accounts = useSelector(selectAllAccounts);
   const [accountStatus, accountError] = useSelector(getAccountStatus);
+  const newUpdates = useSelector(getUpdateStatus);
 
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +28,7 @@ export const Accounts = (props) => {
       dispatch(fetchAllAccounts());
     }
   }, [accountStatus, dispatch]);
+
 
   let accountContent;
   if (accountStatus === "pending") {
@@ -51,10 +57,10 @@ export const Accounts = (props) => {
           if (key === "last_updated") return relativeTimeFromNow(val);
           return val || "-";
         }}
-        renderActions={() => (
-          <div>
-            <Button text={"Delete"} onClick={() => {}} />
-            <Button text={"Update"} onClick={() => {}} />
+        renderActions={(row) => (
+          <div className="row">
+            <ModifyAccounts account={row} action="update"/>
+            <ModifyAccounts account={row} action ={"delete"} />
           </div>
         )}
       />
@@ -63,9 +69,18 @@ export const Accounts = (props) => {
   return (
     <div>
       <h2 className="text-center">Accounts Summary </h2>
+      {newUpdates && newUpdates.length > 0 && (
+        <Notification
+          dismissable
+          onRequestClose={() => dispatch(clearUpdates())}
+          type={"info"}
+        >
+          {newUpdates}
+        </Notification>
+      )}
       <div className="row flex-col">
         <div className="col">
-          <AddAccount />
+          <ModifyAccounts />
         </div>
         <div className="col">{accountContent}</div>
       </div>

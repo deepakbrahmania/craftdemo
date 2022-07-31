@@ -7,6 +7,7 @@ export const SelectBox = ({
   onChange,
   options,
   valKey,
+  isDisabled=false,
   nameKey,
   renderOption,
 }) => {
@@ -16,6 +17,7 @@ export const SelectBox = ({
         className={classNames(styles.select)}
         value={selected}
         onChange={(e) => onChange(e.target.value)}
+        disabled={isDisabled}
       >
         {options.map((element) =>
           renderOption ? (

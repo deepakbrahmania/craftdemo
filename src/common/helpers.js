@@ -10,3 +10,7 @@ export const relativeTimeFromNow = (timeStamp) => {
         return new Date(timeStamp).toDateString();
     }
 }
+
+export const toLocaleDateTimeString = (timestamp) => {
+    return timestamp.toISOString().slice(0, 10); 
+}
